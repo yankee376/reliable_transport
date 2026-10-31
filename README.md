@@ -229,6 +229,21 @@ Your code with optimizations in Part 3 should be able to pass the same tests as 
 
 For manual testing, please refer to testing instructions for [Part 1 and Part 2](#testing-your-solutions-part-1--part-2).
 
+## Báo cáo thực hiện
+
+Đã hoàn thiện `sender.py` và `receiver.py` trong `RTP-base`. Sender đọc dữ liệu từ stdin, chia thành các gói tối đa 1456 byte và tạo CRC cho từng gói. Receiver kiểm tra CRC, lưu tạm các gói đến lệch thứ tự rồi ghi dữ liệu nhận được ra stdout theo đúng thứ tự. Sender dùng cửa sổ trượt và bộ đếm 500 ms để truyền lại các gói chưa được xác nhận.
+
+Trong `RTP-opt`, em đã triển khai ACK riêng theo sequence number và lưu trạng thái ACK của các gói đang gửi. Khi hết 500 ms, sender chỉ truyền lại những gói chưa được xác nhận.
+
+### Kết quả demo
+
+Em chạy hai phiên bản với dữ liệu mẫu qua test script có proxy. Cả hai lần, chương trình so sánh xác nhận dữ liệu nhận khớp dữ liệu gửi.
+
+| Phiên bản | Lệnh kiểm thử | Kết quả |
+|---|---|---|
+| `RTP-base` | `./test_scripts/test.sh RTP-base` | `SUCCESS: Message received matches message sent!` |
+| `RTP-opt` | `./test_scripts/test.sh RTP-opt` | `SUCCESS: Message received matches message sent!` |
+
 ## Submission and Grading
 
 ### Submit your work
@@ -262,11 +277,3 @@ Your code in both Part 2 (RTP-base) and Part 3 (RTP-opt) should pass our testing
   - 10: correct received message
 - Deductions based on late policies
 - For this project, you are not required to modify the report (but please feel free to include citations and grading notes there).
-
-## Acknowledgements
-
-This programming project is based on UC Berkeley's Project 2 from EE 122: Introduction to Communication Networks, and Johns Hopkins University's Project 2 from EN.601.414/614: Computer Networks.
-
-## Survey
-
-Please fill up the survey when you finish your project: [Survey link](https://forms.gle/Nk9Vq3TZUckkkc8R9).
